@@ -1,18 +1,20 @@
 <template>
   <div class="content">
-    <div v-if="isOpen" class="actions-container">
-      <v-card
-        elevation="4"
-        v-for="action in actions"
-        :key="action.viewText"
-        class="action-card"
-      >
-        <v-icon class="action-icon" size="30" v-bind:color="action.iconColor">
-          {{ action.icon }}
-        </v-icon>
-        <p class="action-text">{{ action.viewText }}</p>
-      </v-card>
-    </div>
+    <transition name="fade">
+      <div v-if="isOpen" class="actions-container">
+        <v-card
+          elevation="4"
+          v-for="action in actions"
+          :key="action.viewText"
+          class="action-card"
+        >
+          <v-icon class="action-icon" size="30" v-bind:color="action.iconColor">
+            {{ action.icon }}
+          </v-icon>
+          <p class="action-text">{{ action.viewText }}</p>
+        </v-card>
+      </div>
+    </transition>
     <div class="toggle-container">
       <v-btn
         v-if="!isOpen"
@@ -37,7 +39,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "ButtonDisplay",
@@ -107,6 +108,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .content {
   height: 90vh;
   width: 90vw;
